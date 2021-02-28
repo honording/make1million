@@ -1,0 +1,13 @@
+{
+    "robinhood": {
+        "token": "some string", 
+        "user_name": "some string", 
+        "user_passwd": "some string"
+    },
+    "twitter": {
+        "consumer_key": "some string", 
+        "consumer_secret": "some string", 
+        "access_token": "some string", 
+        "access_token_secret": "some string"
+    }
+}
