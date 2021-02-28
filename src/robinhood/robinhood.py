@@ -1,4 +1,4 @@
-import robin_stocks as rs
+import robin_stocks.robinhood as rs
 import pyotp
 import sys
 import ntplib
@@ -380,7 +380,7 @@ class RobinHood:
         """
         totp  = pyotp.TOTP(auth_info["token"]).now()
         try:
-            login = rs.login(auth_info["user_name"], "user_passwd", store_session=True, mfa_code=totp)
+            login = rs.login(auth_info["user_name"], auth_info["user_passwd"], store_session=True, mfa_code=totp)
         except:
             print(f"{bColors.FAIL}Fail: Unable to login robinhood by given credentials.{bColors.ENDC}")
             sys.exit()
