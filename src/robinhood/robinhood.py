@@ -13,7 +13,7 @@ from common import bColors
 from common import FormatNumber
 from common import isClose
 
-
+import os
 
 
 
@@ -49,6 +49,8 @@ class RobinHood:
         self.__dividends_hisotry = None
         self.__orders_hisotry = None
         self.__bank_transfer_history = None
+
+        self.__available_cash = None
 
         self.__instrument_symbol_map = {}
 
@@ -373,6 +375,20 @@ class RobinHood:
         if stock_dividends:
             self.__getDividendsHistory()
 
+    def __getAvailableCash(self):
+        self.__available_cash = float(rs.build_user_profile()["cash"])
+
+    def returnCompanyInfo(self, symbol):
+        return rs.get_instruments_by_symbols(symbol), rs.get_latest_price(symbol)
+    
+    def returnAvailableCash(self):
+        if self.__available_cash == None:
+            self.__getAvailableCash()
+        return self.__available_cash
+
+    def returnHoldings(self):
+        return rs.build_holdings()
+
 
     def MFALogin(self, auth_info):
         """
@@ -385,6 +401,8 @@ class RobinHood:
             print(f"{bColors.FAIL}Fail: Unable to login robinhood by given credentials.{bColors.ENDC}")
             sys.exit()
         print(f"{bColors.OKGREEN}Info: Login successful.{bColors.ENDC}")
+        f = open(os.devnull,"w")
+        rs.set_output(f)
 
 
     def MFALogoff(self):

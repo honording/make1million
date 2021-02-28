@@ -130,4 +130,5 @@ dmypy.json
 
 # Custom
 .tokens
+.actions
 config/user_auth.json
